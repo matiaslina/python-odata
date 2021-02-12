@@ -51,7 +51,12 @@ query = Service.query(Order)
 query = query.filter(Order.ShipCity == 'Berlin')
 
 for order in query:
-    order.ShippedDate = datetime.datetime.utcnow() 
+    order.ShippedDate = datetime.datetime.utcnow()
     order.Employee = empl
     Service.save(order)
 ```
+
+# Original author
+
+This is a fork from [@tuomur](https://github.com/tuomur)'s
+[python-odata](https://github.com/tuomur/python-odata).
