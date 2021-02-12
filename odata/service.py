@@ -74,6 +74,7 @@ class ODataService(object):
     :param reflect_entities: Create a request to the service for its metadata, and create entity classes automatically
     :param session: Custom Requests session to use for communication with the endpoint
     :param auth: Custom Requests auth object to use for credentials
+    :param schema_path: Local schema file.
     :raises ODataConnectionError: Fetching metadata failed. Server returned an HTTP error code
     """
     def __init__(self, url, base=None, reflect_entities=False, session=None, auth=None, schema_path=None):
