@@ -4,8 +4,8 @@ import logging
 import sys
 has_lxml = False
 try:
-    from lxml import etree as ET
-    has_lxml = True
+    has_lxml = False
+    import xml.etree.ElementTree as ET
 except ImportError:
     if sys.version_info < (2, 7):
         raise ImportError('lxml required for Python versions older than 2.7')
@@ -251,8 +251,12 @@ class MetaData(object):
 
     def load_document(self):
         self.log.info('Loading metadata document: {0}'.format(self.url))
-        response = self.connection._do_get(self.url)
-        return ET.fromstring(response.content)
+        if self.service.schema_path is None:
+            response = self.connection._do_get(self.url)
+            return ET.fromstring(response.content)
+        else:
+            with open(self.service.schema_path) as fp:
+                return ET.fromstring(fp.read())
 
     def _parse_action(self, xmlq, action_element, schema_name):
         action = {
